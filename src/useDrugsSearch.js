@@ -19,7 +19,7 @@ export default function useDrugsSearch(field, term, limit) {
             axios({
                 method: 'GET',
                 url: 'https://api.fda.gov/drug/label.json',
-                params: { search: `${field}:${term}`, limit: limit }, //bra-nd name, gen-eric name, substance name
+                params: { search: `${field}:${term}`, limit: limit },
                 cancelToken: new axios.CancelToken(c => cancel = c)
             }).then(res => {
                 setDrugs(prevDrugs => {
