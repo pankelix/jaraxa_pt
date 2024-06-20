@@ -1,32 +1,23 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-export default function useDrugsSearch(field, term, limit) {
+export default function useDrugsSearchById(id) {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
-    const [drugs, setDrugs] = useState([])
-    const [moreResults, setMoreResults] = useState(false)
+    const [drug, setDrug] = useState(null)
 
     useEffect(() => {
-        setDrugs([])
-    }, [term])
-
-    useEffect(() => {
-        if (term) {
+        if (id) {
             setLoading(true)
             setError(false)
             let cancel
             axios({
                 method: 'GET',
                 url: 'https://api.fda.gov/drug/label.json',
-                params: { search: `${field}:${term}`, limit: limit }, //bra-nd name, gen-eric name, substance name
+                params: { search: `id:${id}` },
                 cancelToken: new axios.CancelToken(c => cancel = c)
             }).then(res => {
-                setDrugs(prevDrugs => {
-                    return [...prevDrugs, ...res.data.results]
-                })
-                console.log(res.data)
-                setMoreResults(res.data.meta.results.total > limit)
+                setDrug(res.data.results[0])
                 setLoading(false)
             }).catch(error => {
                 if (axios.isCancel(error)) return
@@ -37,7 +28,7 @@ export default function useDrugsSearch(field, term, limit) {
         } else {
             setLoading(false)
         }
-    }, [field, term, limit])
+    }, [id])
 
-    return { loading, error, drugs, moreResults }
+    return { loading, error, drug }
 }
