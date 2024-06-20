@@ -1,7 +1,7 @@
-import React from "react";
+import React from "react"
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import DrugDetail from './DrugDetail'
-import SearchPage from "./SearchPage";
+import DrugDetail from './views/DrugDetail'
+import SearchPage from "./views/SearchPage"
 
 export default function App() {
   return (
@@ -11,5 +11,5 @@ export default function App() {
         <Route path="/drug/:id" element={<DrugDetail />} />
       </Routes>
     </Router>
-  );
+  )
 }
