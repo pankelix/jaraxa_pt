@@ -1,12 +1,12 @@
-import React from "react"
-import { Box, Skeleton } from "@mui/material"
-import DrugListItem from "../components/DrugListItem"
+import React from "react";
+import { Box, Skeleton } from "@mui/material";
+import DrugListItem from "../components/DrugListItem";
 
-export default function DrugList({ drugs, recentSearches, loading, total, limit, lastDrugElementRef, error }) {
+export default function DrugList({ drugs, recentSearches, loading, total, limit, lastDrugElementRef, error, className }) {
     return (
-        <Box p={2} className={recentSearches.length === 0 ? "lg:mt-7 mx-2 lg:w-full": "lg:mt-7 mx-2 lg:w-4/6" }>
+        <Box p={2} className={`drug-list ${className} ${recentSearches.length === 0 ? "lg:mt-7 mx-2 lg:w-full" : "lg:mt-7 mx-2 lg:w-4/6"}`}>
             <div className="flex items-center justify-center mb-2 lg:justify-start">
-                <h2 className="w-full p-2 pl-4 text-slate-500 rounded-t-md ">{drugs.length === 0 ? 'Please, make a search:': `${total} results: `}</h2>
+                <h2 className="w-full p-2 pl-4 text-slate-500 rounded-t-md ">{drugs.length === 0 ? 'Please, make a search:' : `${total} results: `}</h2>
             </div>
 
             {drugs.map((drug, index) => (
@@ -27,8 +27,8 @@ export default function DrugList({ drugs, recentSearches, loading, total, limit,
             )}
 
             {error && <div className="px-2 py-1 bg-white rounded-md">
-                <p>No results found</p>
+                <p className="pl-2">No results found</p>
             </div>}
         </Box>
-    )
+    );
 }
