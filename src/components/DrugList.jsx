@@ -6,8 +6,9 @@ export default function DrugList({ drugs, loading, limit, lastDrugElementRef, er
     return (
         <Box p={2} className="mx-2 lg:w-5/6">
             <div className="flex items-center justify-center mb-2 lg:justify-start">
-                <h2 className="w-full p-2 pl-4 text-white rounded-t-md bg-slate-400">Results:</h2>
+                <h2 className="w-full p-2 pl-4 text-white rounded-t-md bg-slate-400">{drugs.length === 0 ? 'Please, make a search:': 'Results:'}</h2>
             </div>
+
             {drugs.map((drug, index) => (
                 <DrugListItem
                     key={drug.id}
@@ -16,6 +17,7 @@ export default function DrugList({ drugs, loading, limit, lastDrugElementRef, er
                     ref={drugs.length === index + 1 ? lastDrugElementRef : null}
                 />
             ))}
+
             {loading && (
                 <div>
                     {Array.from({ length: limit }).map((_, index) => (
@@ -23,6 +25,7 @@ export default function DrugList({ drugs, loading, limit, lastDrugElementRef, er
                     ))}
                 </div>
             )}
+
             {error && <div className="px-2 py-1 bg-white rounded-md">
                 <p>No results found</p>
             </div>}
