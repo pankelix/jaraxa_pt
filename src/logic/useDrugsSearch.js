@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 
 export default function useDrugsSearch(field, term, limit) {
     const [loading, setLoading] = useState(true)
@@ -13,26 +12,28 @@ export default function useDrugsSearch(field, term, limit) {
 
     useEffect(() => {
         if (term) {
-            setLoading(true)
-            setError(false)
-            axios({
-                method: 'GET',
-                url: 'https://api.fda.gov/drug/label.json',
-                params: { search: `${field}:${term}`, limit: limit }
-            }).then(res => {
-                setDrugs(prevDrugs => {
-                    return [...prevDrugs, ...res.data.results]
+            setLoading(true);
+            setError(false);
+            fetch(`https://api.fda.gov/drug/label.json?search=${field}:${term}&limit=${limit}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
                 })
-                setMoreResults(res.data.meta.results.total > limit)
-                setLoading(false)
-            }).catch(error => {
-                setError(true)
-                setLoading(false)
-            })
+                .then(data => {
+                    setDrugs(prevDrugs => [...prevDrugs, ...data.results]);
+                    setMoreResults(data.meta.results.total > limit);
+                    setLoading(false);
+                })
+                .catch(() => {
+                    setError(true);
+                    setLoading(false);
+                });
         } else {
-            setLoading(false)
+            setLoading(false);
         }
-    }, [field, term, limit])
+    }, [field, term, limit]);
 
     return { loading, error, drugs, moreResults }
 }
