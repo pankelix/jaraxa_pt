@@ -16,18 +16,18 @@ export default function DrugDetail() {
 
     return (
         <>
-            <div className="flex flex-col lg:mx-32 ">
-                <div className='mx-6 mt-10 mb-5 border-b border-neutral-200'>
-                    <Link to={'/'}>
-                        <button className='flex items-center px-2 py-1'>
-                            <Reply sx={{ color: 'grey', mr: 1, my: 1, fontSize: 34 }} />
-                            <p className='text-neutral-500'>New search</p>
-                        </button>
-                    </Link>
-                </div>
+            <div className='w-full pt-10 pb-4 pl-2 mb-5 lg:pl-32 bg-gradient-to-r from-blue-500 to-lime-500'>
+                <Link to={'/'}>
+                    <button className='flex items-center px-2 py-1'>
+                        <Reply sx={{ color: 'white', mr: 1, my: 1, fontSize: 34 }} />
+                        <p className='text-white'>New search</p>
+                    </button>
+                </Link>
+            </div>
 
+            <div className="flex flex-col lg:mx-32 ">
                 <Box p={2} className="flex flex-col gap-4">
-                    <div className='flex flex-col border-b-2 lg:flex-row lg:items-center lg:justify-between'>
+                    <div className='flex flex-col lg:flex-row lg:items-center lg:justify-between'>
                         <Typography className='p-2 ' variant="h5">{drug.openfda.brand_name[0]}</Typography>
                         <Typography className='p-2 text-green-400' variant="h6">Active Ingredients: {drug.openfda.substance_name.join(', ')}</Typography>
                         <Box className="flex items-center">

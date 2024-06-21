@@ -13,7 +13,7 @@ export default function SearchInput({ value, onChange, onSearch, onKeyPress }) {
           margin="none"
           size="small"
           id="standard-basic"
-          InputProps={{ sx: { padding: '0.2rem' } }}
+          InputProps={{ sx: { padding: '0.2rem', paddingLeft: '1rem' } }}
           InputLabelProps={{ sx: { paddingLeft: '1rem' } }}
           label="Search by brand name"
           variant="standard"
