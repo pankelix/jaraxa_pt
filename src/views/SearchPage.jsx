@@ -55,18 +55,18 @@ export default function SearchPage() {
 
     const observer = useRef()
 
-    const lastDrugElementRef = useCallback((node) => {
+    const lastDrugElementRef = useCallback((lastDrugElement) => {
         if (loading) return
 
         if (observer.current) observer.current.disconnect()
 
         observer.current = new IntersectionObserver((entries) => {
             if (entries[0].isIntersecting && moreResults) {
-                setLimit((prevLimit) => prevLimit + limit)
+                setLimit((prevLimit) => prevLimit + 1)
             }
         })
-        if (node) observer.current.observe(node)
-    }, [loading, moreResults, limit])
+        if (lastDrugElement) observer.current.observe(lastDrugElement)
+    }, [loading, moreResults])
 
     return (
         <>
