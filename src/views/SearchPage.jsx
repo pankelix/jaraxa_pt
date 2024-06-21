@@ -11,7 +11,7 @@ export default function SearchPage() {
     const [limit, setLimit] = useState(20)
     const [recentSearches, setRecentSearches] = useState([])
 
-    const { drugs, moreResults, loading, error } = useDrugsSearch(field, term, limit)
+    const { drugs, moreResults, loading, error, total } = useDrugsSearch(field, term, limit)
 
     useEffect(() => {
         const searches = JSON.parse(localStorage.getItem('recentSearches')) || []
@@ -70,14 +70,17 @@ export default function SearchPage() {
 
     return (
         <>
-            <div className="flex flex-col lg:mx-32">
+            <div className="flex flex-col items-center pt-10 bg-gradient-to-r from-blue-500 to-lime-500">
+                <h1 className="text-2xl font-bold text-white mt-7 lg:mt-10 lg:text-3xl">OPENFDA Medicine search</h1>
                 <SearchInput
                     value={inputValue}
                     onChange={handleInputChange}
                     onSearch={handleSearch}
                     onKeyPress={handleKeyPress}
                 />
+            </div>
 
+            <div className="flex flex-col lg:mx-32">
                 <div className="lg:flex lg:flex-row-reverse lg:justify-between">
                     {recentSearches.length > 0 && <RecentlySearched
                         recentSearches={recentSearches}
@@ -89,6 +92,7 @@ export default function SearchPage() {
                         recentSearches={recentSearches}
                         loading={loading}
                         limit={limit}
+                        total={total}
                         error={error}
                         lastDrugElementRef={lastDrugElementRef}
                     />

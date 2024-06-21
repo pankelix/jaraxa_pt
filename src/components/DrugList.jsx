@@ -2,11 +2,11 @@ import React from "react"
 import { Box, Skeleton } from "@mui/material"
 import DrugListItem from "../components/DrugListItem"
 
-export default function DrugList({ drugs, recentSearches, loading, limit, lastDrugElementRef, error }) {
+export default function DrugList({ drugs, recentSearches, loading, total, limit, lastDrugElementRef, error }) {
     return (
-        <Box p={2} className={recentSearches.length === 0 ? "mx-2 lg:w-full": "mx-2 lg:w-4/6" }>
+        <Box p={2} className={recentSearches.length === 0 ? "lg:mt-7 mx-2 lg:w-full": "lg:mt-7 mx-2 lg:w-4/6" }>
             <div className="flex items-center justify-center mb-2 lg:justify-start">
-                <h2 className="w-full p-2 pl-4 text-white rounded-t-md bg-slate-400">{drugs.length === 0 ? 'Please, make a search:': 'Results:'}</h2>
+                <h2 className="w-full p-2 pl-4 text-slate-500 rounded-t-md ">{drugs.length === 0 ? 'Please, make a search:': `${total} results: `}</h2>
             </div>
 
             {drugs.map((drug, index) => (
