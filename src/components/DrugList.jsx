@@ -2,9 +2,9 @@ import React from "react"
 import { Box, Skeleton } from "@mui/material"
 import DrugListItem from "../components/DrugListItem"
 
-export default function DrugList({ drugs, loading, limit, lastDrugElementRef, error }) {
+export default function DrugList({ drugs, recentSearches, loading, limit, lastDrugElementRef, error }) {
     return (
-        <Box p={2} className="mx-2 lg:w-5/6">
+        <Box p={2} className={recentSearches.length === 0 ? "mx-2 lg:w-full": "mx-2 lg:w-4/6" }>
             <div className="flex items-center justify-center mb-2 lg:justify-start">
                 <h2 className="w-full p-2 pl-4 text-white rounded-t-md bg-slate-400">{drugs.length === 0 ? 'Please, make a search:': 'Results:'}</h2>
             </div>

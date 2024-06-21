@@ -86,6 +86,7 @@ export default function SearchPage() {
 
                     <DrugList
                         drugs={drugs}
+                        recentSearches={recentSearches}
                         loading={loading}
                         limit={limit}
                         error={error}
