@@ -12,28 +12,28 @@ export default function useDrugsSearch(field, term, limit) {
 
     useEffect(() => {
         if (term) {
-            setLoading(true);
-            setError(false);
+            setLoading(true)
+            setError(false)
             fetch(`https://api.fda.gov/drug/label.json?search=${field}:${term}&limit=${limit}`)
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error('Network response was not ok');
+                        throw new Error('Network response was not ok')
                     }
-                    return response.json();
+                    return response.json()
                 })
                 .then(data => {
-                    setDrugs(prevDrugs => [...prevDrugs, ...data.results]);
-                    setMoreResults(data.meta.results.total > limit);
-                    setLoading(false);
+                    setDrugs(prevDrugs => [...prevDrugs, ...data.results])
+                    setMoreResults(data.meta.results.total > limit)
+                    setLoading(false)
                 })
                 .catch(() => {
-                    setError(true);
-                    setLoading(false);
-                });
+                    setError(true)
+                    setLoading(false)
+                })
         } else {
-            setLoading(false);
+            setLoading(false)
         }
-    }, [field, term, limit]);
+    }, [field, term, limit])
 
     return { loading, error, drugs, moreResults }
 }

@@ -7,27 +7,27 @@ export default function useDrugsSearchById(id) {
 
     useEffect(() => {
         if (id) {
-            setLoading(true);
-            setError(false);
+            setLoading(true)
+            setError(false)
             fetch(`https://api.fda.gov/drug/label.json?search=id:${id}`)
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error('Network response was not ok');
+                        throw new Error('Network response was not ok')
                     }
-                    return response.json();
+                    return response.json()
                 })
                 .then(data => {
-                    setDrug(data.results[0]);
-                    setLoading(false);
+                    setDrug(data.results[0])
+                    setLoading(false)
                 })
                 .catch(() => {
-                    setError(true);
-                    setLoading(false);
-                });
+                    setError(true)
+                    setLoading(false)
+                })
         } else {
-            setLoading(false);
+            setLoading(false)
         }
-    }, [id]);
+    }, [id])
 
     return { loading, error, drug }
 }
