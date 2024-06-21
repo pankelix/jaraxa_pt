@@ -25,7 +25,6 @@ export default function useDrugsSearch(field, term, limit) {
                 setDrugs(prevDrugs => {
                     return [...prevDrugs, ...res.data.results]
                 })
-                console.log(res.data)
                 setMoreResults(res.data.meta.results.total > limit)
                 setLoading(false)
             }).catch(error => {
