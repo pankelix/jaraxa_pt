@@ -1,6 +1,6 @@
-import React from "react";
-import { Box, Skeleton } from "@mui/material";
-import DrugListItem from "../components/DrugListItem";
+import React from "react"
+import { Box, Skeleton } from "@mui/material"
+import DrugListItem from "../components/DrugListItem"
 
 export default function DrugList({ drugs, recentSearches, loading, total, limit, lastDrugElementRef, error, className }) {
     return (
@@ -30,5 +30,5 @@ export default function DrugList({ drugs, recentSearches, loading, total, limit,
                 <p className="pl-2">No results found</p>
             </div>}
         </Box>
-    );
+    )
 }

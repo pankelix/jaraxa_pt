@@ -1,76 +1,76 @@
-import React, { useState, useRef, useCallback, useEffect } from "react";
-import useDrugsSearch from "../logic/useDrugsSearch";
-import DrugList from "../components/DrugList";
-import RecentlySearched from "../components/RecentlySearched";
-import SearchInput from "../components/SearchInput";
+import React, { useState, useRef, useCallback, useEffect } from "react"
+import useDrugsSearch from "../logic/useDrugsSearch"
+import DrugList from "../components/DrugList"
+import RecentlySearched from "../components/RecentlySearched"
+import SearchInput from "../components/SearchInput"
 
 export default function SearchPage() {
-    const [field, setField] = useState('');
-    const [term, setTerm] = useState('');
-    const [inputValue, setInputValue] = useState('');
-    const [limit, setLimit] = useState(20);
-    const [recentSearches, setRecentSearches] = useState([]);
+    const [field, setField] = useState('')
+    const [term, setTerm] = useState('')
+    const [inputValue, setInputValue] = useState('')
+    const [limit, setLimit] = useState(20)
+    const [recentSearches, setRecentSearches] = useState([])
 
-    const { drugs, moreResults, loading, error, total } = useDrugsSearch(field, term, limit);
+    const { drugs, moreResults, loading, error, total } = useDrugsSearch(field, term, limit)
 
     useEffect(() => {
-        const searches = JSON.parse(localStorage.getItem('recentSearches')) || [];
-        setRecentSearches(searches);
-    }, []);
+        const searches = JSON.parse(localStorage.getItem('recentSearches')) || []
+        setRecentSearches(searches)
+    }, [])
 
     const handleInputChange = (event) => {
-        const value = event.target.value;
-        setInputValue(value);
-        setField('openfda.brand_name');
-        setTerm(value);
-        setLimit(20);
-    };
+        const value = event.target.value
+        setInputValue(value)
+        setField('openfda.brand_name')
+        setTerm(value)
+        setLimit(20)
+    }
 
     const handleSearch = () => {
         if (inputValue.trim() !== '') {
-            const searches = JSON.parse(localStorage.getItem('recentSearches')) || [];
+            const searches = JSON.parse(localStorage.getItem('recentSearches')) || []
             if (!searches.includes(inputValue)) {
                 if (searches.length >= 12) {
-                    searches.pop();
+                    searches.pop()
                 }
-                searches.unshift(inputValue);
-                localStorage.setItem('recentSearches', JSON.stringify(searches));
-                setRecentSearches(searches);
+                searches.unshift(inputValue)
+                localStorage.setItem('recentSearches', JSON.stringify(searches))
+                setRecentSearches(searches)
             }
         }
-    };
+    }
 
     const handleKeyPress = (event) => {
         if (event.key === 'Enter') {
-            handleSearch();
+            handleSearch()
         }
-    };
+    }
 
     const handleBlur = () => {
-        handleSearch();
-    };
+        handleSearch()
+    }
 
     const handleRecentSearchClick = (searchTerm) => {
-        setInputValue(searchTerm);
-        setField('openfda.brand_name');
-        setTerm(searchTerm);
-        setLimit(20);
-    };
+        setInputValue(searchTerm)
+        setField('openfda.brand_name')
+        setTerm(searchTerm)
+        setLimit(20)
+    }
 
-    const observer = useRef();
+    const observer = useRef()
 
     const lastDrugElementRef = useCallback((lastDrugElement) => {
-        if (loading) return;
+        if (loading) return
 
-        if (observer.current) observer.current.disconnect();
+        if (observer.current) observer.current.disconnect()
 
         observer.current = new IntersectionObserver((entries) => {
             if (entries[0].isIntersecting && moreResults) {
-                setLimit((prevLimit) => prevLimit + 1);
+                setLimit((prevLimit) => prevLimit + 1)
             }
-        });
-        if (lastDrugElement) observer.current.observe(lastDrugElement);
-    }, [loading, moreResults]);
+        })
+        if (lastDrugElement) observer.current.observe(lastDrugElement)
+    }, [loading, moreResults])
 
     return (
         <>
@@ -103,5 +103,5 @@ export default function SearchPage() {
                 />
             </div>
         </>
-    );
+    )
 }
